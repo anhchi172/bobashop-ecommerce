@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let menu = [];
     let currentPage = 0;
     const itemsPerPage = 6;
-    const apiBaseUrl = "http://localhost:3000"; // Replace with your backend URL
+    const apiBaseUrl = "http://localhost:3000"; 
 
     async function init() {
         try {
