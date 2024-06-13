@@ -1,38 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
-    // Initialize variables
     let cart = [];
     let currentItem = null;
     let menu = [];
     let currentPage = 0;
     const itemsPerPage = 6;
-    let apiBaseUrl = "http://localhost:8000";
+    const apiBaseUrl = "http://localhost:3000"; // Replace with your backend URL
 
-    // Function to initialize the application
     async function init() {
-        await loadConfig();
-        await loadMenu();
-        loadCustomizations();
-        attachEventListeners();
-        renderMenuPage();
-    }
-
-    // Load configuration from config.json
-    async function loadConfig() {
         try {
-            const response = await fetch("config.json");
-            const config = await response.json();
-            apiBaseUrl = config.apiBaseUrl;
+            await loadMenu();
+            attachEventListeners();
+            renderMenuPage();
         } catch (error) {
-            console.error("Failed to load config:", error);
+            console.error("Initialization failed:", error);
         }
     }
 
-    // Load menu items from the API
     async function loadMenu() {
         try {
-            const response = await fetch(`${apiBaseUrl}/products`);
+            const response = await fetch(`${apiBaseUrl}/menu`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -42,16 +30,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Render a page of menu items
     function renderMenuPage() {
-        const menuView = document.querySelector(".menu-view");
+        const menuView = document.querySelector("#menu-view");
         const start = currentPage * itemsPerPage;
         const end = start + itemsPerPage;
-        const itemsToRender = menu.slice(start, end);
+        const itemsToRender = Object.values(menu).flat().slice(start, end);
 
         itemsToRender.forEach(item => {
             const itemDiv = document.createElement("div");
             itemDiv.classList.add("menu-item");
+
+            const itemContentDiv = document.createElement("div");
+            itemContentDiv.classList.add("menu-item-content");
+
+            const itemInfoDiv = document.createElement("div");
+            itemInfoDiv.classList.add("menu-item-info");
 
             const itemName = document.createElement("h3");
             itemName.textContent = item.name;
@@ -59,10 +52,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const itemPrice = document.createElement("p");
             itemPrice.textContent = `$${item.price.toFixed(2)}`;
 
-            const addButton = document.createElement("img");
-            addButton.classList.add("add-to-cart");
-            addButton.src = "imgs/plus.png";
-            addButton.alt = "Customize and Add to Cart";
+            itemInfoDiv.appendChild(itemName);
+            itemInfoDiv.appendChild(itemPrice);
+
+            const itemImage = document.createElement("img");
+            itemImage.src = item.image;
+            itemImage.alt = item.name;
+            itemImage.classList.add("drink-img");
+
+            const addButton = document.createElement("button");
+            addButton.classList.add("add-button");
+            addButton.textContent = "Add";
             addButton.style.cursor = "pointer";
 
             addButton.addEventListener("click", () => {
@@ -70,8 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 showModal();
             });
 
-            itemDiv.appendChild(itemName);
-            itemDiv.appendChild(itemPrice);
+            itemContentDiv.appendChild(itemInfoDiv);
+            itemContentDiv.appendChild(itemImage);
+            itemDiv.appendChild(itemContentDiv);
             itemDiv.appendChild(addButton);
             menuView.appendChild(itemDiv);
         });
@@ -79,53 +80,84 @@ document.addEventListener("DOMContentLoaded", () => {
         currentPage++;
     }
 
-    // Handle scroll to load more menu items
     window.addEventListener('scroll', () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             renderMenuPage();
         }
     });
 
-    // Load customization options from the API
-    async function loadCustomizations() {
+    function showModal() {
+        const customizationSection = document.querySelector("#customization-modal");
+        customizationSection.classList.remove("hidden");
+
+        // Fetch customization options from the server
+        fetchCustomizationOptions();
+    }
+
+    async function fetchCustomizationOptions() {
         try {
             const response = await fetch(`${apiBaseUrl}/customizations`);
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`Failed to fetch customizations: ${response.status}`);
             }
-            const data = await response.json();
-            setUpCustomization(data);
+            const customizations = await response.json();
+            populateCustomizationForm(customizations);
         } catch (error) {
-            console.error("Failed to load customizations:", error);
+            console.error("Failed to fetch customizations:", error);
+            // Handle error fetching customizations here
         }
     }
 
-    // Show the customization modal
-    function showModal() {
-        const customizationSection = document.querySelector("#customization");
-        customizationSection.classList.remove("hidden");
+    function populateCustomizationForm(customizations) {
+        const sizeSelect = document.querySelector("#size");
+        const sugarSelect = document.querySelector("#sugar");
+        const iceSelect = document.querySelector("#ice");
+        const toppingsContainer = document.querySelector("#toppings");
+
+        // Populate size options (assuming sizes are fixed in the frontend)
+        // You can customize this part based on your menu or backend data
+        sizeSelect.innerHTML = `
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+        `;
+
+        // Populate sugar level options
+        sugarSelect.innerHTML = customizations.sugarLevels.map(level => {
+            return `<option value="${level}">${level}</option>`;
+        }).join('');
+
+        // Populate ice level options
+        iceSelect.innerHTML = customizations.iceLevels.map(level => {
+            return `<option value="${level}">${level}</option>`;
+        }).join('');
+
+        // Populate toppings checkboxes
+        toppingsContainer.innerHTML = customizations.toppings.map(topping => {
+            return `
+                <label>
+                    <input type="checkbox" name="topping" value="${topping.name}" data-price="${topping.price}">
+                    ${topping.name} (+$${topping.price.toFixed(2)})
+                </label>
+            `;
+        }).join('');
     }
 
-    // Hide the customization modal
     function hideModal() {
-        const customizationSection = document.querySelector("#customization");
+        const customizationSection = document.querySelector("#customization-modal");
         customizationSection.classList.add("hidden");
     }
 
-    // Attach event listeners
     function attachEventListeners() {
-        const customizationForm = document.querySelector("#review-form");
+        const customizationForm = document.querySelector("#customization-form");
         customizationForm.addEventListener("submit", handleCustomizationFormSubmit);
 
-        const closeModalButtons = document.querySelectorAll("#cart-modal .close, #checkout-btn");
-        closeModalButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                hideModal();
-            });
+        const closeModalButton = document.querySelector(".close-button");
+        closeModalButton.addEventListener("click", () => {
+            hideModal();
         });
     }
 
-    // Handle customization form submission
     function handleCustomizationFormSubmit(event) {
         event.preventDefault();
         if (!currentItem) {
@@ -133,26 +165,25 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const iceLevelSelect = document.querySelector("#ice-level");
-        const sugarLevelSelect = document.querySelector("#sugar-level");
-        const toppingsContainer = document.querySelector("#toppings");
+        const sizeSelect = document.querySelector("#size");
+        const sugarSelect = document.querySelector("#sugar");
+        const iceSelect = document.querySelector("#ice");
+        const toppingsContainer = document.querySelectorAll("#toppings input[type=checkbox]:checked");
 
-        const iceLevel = iceLevelSelect.value;
-        const sugarLevel = sugarLevelSelect.value;
-        const toppings = [];
-        let toppingPrice = 0;
-
-        toppingsContainer.querySelectorAll("input[type=checkbox]:checked").forEach(checkbox => {
-            toppings.push(checkbox.value);
-            toppingPrice += parseFloat(checkbox.dataset.price);
-        });
+        const size = sizeSelect.value;
+        const sugarLevel = sugarSelect.value;
+        const iceLevel = iceSelect.value;
+        const toppings = Array.from(toppingsContainer).map(topping => ({
+            name: topping.value,
+            price: parseFloat(topping.dataset.price)
+        }));
 
         const customizedItem = {
             ...currentItem,
-            price: currentItem.price + toppingPrice,
+            size,
             customization: {
-                iceLevel,
                 sugarLevel,
+                iceLevel,
                 toppings
             }
         };
@@ -160,10 +191,9 @@ document.addEventListener("DOMContentLoaded", () => {
         cart.push(customizedItem);
         updateCartCount();
         renderCartItems();
-        hideModal(); // Hide modal after adding item to cart
+        hideModal();
     }
 
-    // Update the cart count displayed
     function updateCartCount() {
         const cartCountElement = document.querySelector("#cartCount");
         if (cartCountElement) {
@@ -173,16 +203,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Render the items in the cart
     function renderCartItems() {
-        const cartItems = document.querySelector(".cart-items");
+        const cartItems = document.querySelector("#cart-view");
         cartItems.innerHTML = "";
         cart.forEach((item, index) => {
             const itemDiv = document.createElement("div");
             itemDiv.classList.add("cart-item");
 
             const itemName = document.createElement("p");
-            itemName.textContent = `${item.name} - $${item.price.toFixed(2)} (Ice: ${item.customization.iceLevel}, Sugar: ${item.customization.sugarLevel})`;
+            itemName.textContent = `${item.name} - $${item.price.toFixed(2)} (${item.customization.size}, Sugar: ${item.customization.sugarLevel}, Ice: ${item.customization.iceLevel})`;
 
             const removeButton = document.createElement("button");
             removeButton.textContent = "Remove";
@@ -198,46 +227,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Set up customization options
-    function setUpCustomization(data) {
-        const iceLevelSelect = document.querySelector("#ice-level");
-        const sugarLevelSelect = document.querySelector("#sugar-level");
-        const toppingsContainer = document.querySelector("#toppings");
-
-        data.iceLevels.forEach(level => {
-            const option = document.createElement("option");
-            option.value = level;
-            option.textContent = level;
-            iceLevelSelect.appendChild(option);
-        });
-
-        data.sugarLevels.forEach(level => {
-            const option = document.createElement("option");
-            option.value = level;
-            option.textContent = level;
-            sugarLevelSelect.appendChild(option);
-        });
-
-        data.toppings.forEach((topping, index) => {
-            const label = document.createElement("label");
-            const checkboxId = `topping-${index}`;
-            const checkboxName = `topping-${index}`;
-
-            label.textContent = `${topping.name} (+$${topping.price.toFixed(2)})`;
-            label.setAttribute("for", checkboxId);
-
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.value = topping.name;
-            checkbox.dataset.price = topping.price;
-            checkbox.id = checkboxId;
-            checkbox.name = checkboxName;
-
-            label.appendChild(checkbox);
-            toppingsContainer.appendChild(label);
-        });
-    }
-
-    // Start the application initialization
     init();
 });

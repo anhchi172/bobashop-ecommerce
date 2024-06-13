@@ -1,54 +1,72 @@
-"use strict";
+const express = require('express');
+const fs = require('fs').promises;
+const path = require('path');
 
-const express = require("express");
 const app = express();
-const fsp = require("fs/promises");
-const SERVER_ERR_CODE = 400;
+const SERVER_ERR_CODE = 500;
 const SERVER_ERROR = "Something went wrong on the server, please try again later.";
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
 
-async function getData() {
+// Returns a JSON collection of all categories and items served at the boba shop
+app.get("/menu", async (req, res) => {
     try {
-        const menuData = await fsp.readFile("data/menu.json", "utf8");
-        const customizationsData = await fsp.readFile("data/customizations.json", "utf8");
-        const menuContents = JSON.parse(menuData);
-        const customizationsContents = JSON.parse(customizationsData);
-
-        getProductData(menuContents);
-        getItemData(menuContents);
-        getCustomizationsData(customizationsContents);
+        const result = await getMenuData();
+        res.json(result);
     } catch (err) {
-        console.error(err);
+        res.status(SERVER_ERR_CODE).send(SERVER_ERROR);
+    }
+});
+
+// Returns a JSON array of items for the given category name
+app.get("/menu/:category", async (req, res) => {
+    let categoryDir = req.params.category.toLowerCase();
+    try {
+        const result = await getItemData(categoryDir);
+        if (result.length > 0) {
+            res.json(result);
+        } else {
+            res.status(400).send(`Category "${req.params.category}" not found.`);
+        }
+    } catch (err) {
+        console.error("Error fetching item data:", err);
+        res.status(SERVER_ERR_CODE).send(SERVER_ERROR);
+    }
+});
+
+// Returns customizations data
+app.get("/customizations", async (req, res) => {
+    try {
+        const customizationsData = await fs.readFile('data/customizations.json', 'utf8');
+        res.json(JSON.parse(customizationsData));
+    } catch (err) {
+        console.error("Error reading customizations data:", err);
+        res.status(SERVER_ERR_CODE).send(SERVER_ERROR);
+    }
+});
+
+async function getMenuData() {
+    try {
+        const menuData = await fs.readFile('data/menu.json', 'utf8');
+        return JSON.parse(menuData);
+    } catch (err) {
+        console.error("Error reading menu data:", err);
+        return {};
     }
 }
-getData();
 
-function getProductData(content) {
-    app.get("/products", (req, res) => {
-        res.json(content);
-    });
+async function getItemData(category) {
+    try {
+        const menuData = await fs.readFile('data/menu.json', 'utf8');
+        const menu = JSON.parse(menuData);
+        return menu.hasOwnProperty(category) ? menu[category] : [];
+    } catch (err) {
+        console.error("Error reading menu data:", err);
+        return [];
+    }
 }
 
-function getItemData(content) {
-    app.get("/products/:category", (req, res) => {
-        let categoryDir = req.params.category.toLowerCase();
-        res.type("text");
-        if (content[categoryDir]) {
-            res.send(content[categoryDir]);
-        } else {
-            res.status(SERVER_ERR_CODE).send(SERVER_ERROR);
-        }
-    });
-}
-
-function getCustomizationsData(content) {
-    app.get("/customizations", (req, res) => {
-        res.json(content);
-    });
-}
-
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-    console.log("Listening " + PORT + "...");
+app.listen(3000, () => {
+    console.log("Server is running on port 3000");
 });

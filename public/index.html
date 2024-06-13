@@ -20,116 +20,47 @@
     </nav>
 
     <section id="menu" class="menu-section">
-      <div class="menu-view">
-        <div class="menu-item">
-          <div class="menu-item-content">
-            <div class="menu-item-info">
-              <h3>Classic Milk Tea</h3>
-              <p>$3.50</p>
-            </div>
-            <img
-              src="imgs/classic-milk-tea.jpg"
-              alt="Classic Milk Tea"
-              class="drink-img"
-            />
-          </div>
-          <img
-            class="add-to-cart"
-            src="imgs/plus.png"
-            alt="Customize and Add to Cart"
-          />
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-content">
-            <div class="menu-item-info">
-              <h3>Taro Milk Tea</h3>
-              <p>$4.00</p>
-            </div>
-            <img
-              src="imgs/taro-milk-tea.jpg"
-              alt="Taro Milk Tea"
-              class="drink-img"
-            />
-          </div>
-          <img
-            class="add-to-cart"
-            src="imgs/plus.png"
-            alt="Customize and Add to Cart"
-          />
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-content">
-            <div class="menu-item-info">
-              <h3>Thai Milk Tea</h3>
-              <p>$3.75</p>
-            </div>
-            <img
-              src="imgs/thai-milk-tea.jpg"
-              alt="Thai Milk Tea"
-              class="drink-img"
-            />
-          </div>
-          <img
-            class="add-to-cart"
-            src="imgs/plus.png"
-            alt="Customize and Add to Cart"
-          />
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-content">
-            <div class="menu-item-info">
-              <h3>Matcha Milk Tea</h3>
-              <p>$4.50</p>
-            </div>
-            <img
-              src="imgs/matcha-milk-tea.jpg"
-              alt="Matcha Milk Tea"
-              class="drink-img"
-            />
-          </div>
-          <img
-            class="add-to-cart"
-            src="imgs/plus.png"
-            alt="Customize and Add to Cart"
-          />
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-content">
-            <div class="menu-item-info">
-              <h3>Coffee Milk Tea</h3>
-              <p>$4.00</p>
-            </div>
-            <img
-              src="imgs/coffee-milk-tea.jpg"
-              alt="Coffee Milk Tea"
-              class="drink-img"
-            />
-          </div>
-          <img
-            class="add-to-cart"
-            src="imgs/plus.png"
-            alt="Customize and Add to Cart"
-          />
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-content">
-            <div class="menu-item-info">
-              <h3>Honeydew Milk Tea</h3>
-              <p>$3.25</p>
-            </div>
-            <img
-              src="imgs/honeydew-milk-tea.jpg"
-              alt="Honeydew Milk Tea"
-              class="drink-img"
-            />
-          </div>
-          <button class="add-button">Add</button>
-        </div>
-      </div>
+      <div class="menu-view" id="menu-view"></div>
     </section>
     <section id="order" class="order-section">
-      <div class="cart-items"></div>
+      <h2>Your Cart</h2>
+      <div class="cart-items" id="cart-view"></div>
     </section>
+
+    <div id="customization-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Customize your drink</h2>
+        <form id="customization-form">
+          <label for="size">Size:</label>
+          <select id="size" name="size" required>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+          <br>
+          <label for="sugar">Sugar Level:</label>
+          <select id="sugar" name="sugar" required>
+            <option value="0%">0%</option>
+            <option value="25%">25%</option>
+            <option value="50%">50%</option>
+            <option value="75%">75%</option>
+            <option value="100%">100%</option>
+          </select>
+          <br>
+          <label for="ice">Ice Level:</label>
+          <select id="ice" name="ice" required>
+            <option value="0%">0%</option>
+            <option value="25%">25%</option>
+            <option value="50%">50%</option>
+            <option value="75%">75%</option>
+            <option value="100%">100%</option>
+          </select>
+          <br>
+          <button type="submit">Add to Cart</button>
+        </form>
+      </div>
+    </div>
 
     <section class="review-form">
       <h2>Leave a Review</h2>
