@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 addButton.style.cursor = "pointer";
 
                 addButton.addEventListener("click", () => {
+                    console.log("Item selected for customization:", item); // Log the selected item
                     currentItem = item;
                     showModal();
                 });
@@ -99,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showModal() {
-        currentItem = item; // Set currentItem to the item being customized
         const customizationSection = document.querySelector("#customization");
         customizationSection.classList.remove("hidden");
     }
@@ -125,6 +125,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function handleCustomizationFormSubmit(event) {
         event.preventDefault();
+        console.log("Form submitted. Current item:", currentItem); // Log the current item
+        if (!currentItem) {
+            console.error("No item selected for customization.");
+            return;
+        }
+
         const iceLevelSelect = document.querySelector("#ice-level");
         const sugarLevelSelect = document.querySelector("#sugar-level");
         const toppingsContainer = document.querySelector("#toppings");
