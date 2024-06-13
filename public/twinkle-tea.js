@@ -1,21 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
     "use strict";
+
+    // Initialize variables
     let cart = [];
     let currentItem = null;
     let menu = [];
     let currentPage = 0;
     const itemsPerPage = 6;
+    let apiBaseUrl = "http://localhost:8000";
 
+    // Function to initialize the application
     async function init() {
         await loadConfig();
         await loadMenu();
         loadCustomizations();
-        attachCustomizationFormListener();
-        attachCartModalListener();
-        window.addEventListener('scroll', handleScroll);
+        attachEventListeners();
         renderMenuPage();
     }
 
+    // Load configuration from config.json
     async function loadConfig() {
         try {
             const response = await fetch("config.json");
@@ -26,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Load menu items from the API
     async function loadMenu() {
         try {
             const response = await fetch(`${apiBaseUrl}/products`);
@@ -38,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Render a page of menu items
     function renderMenuPage() {
         const menuView = document.querySelector(".menu-view");
         const start = currentPage * itemsPerPage;
@@ -45,10 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const itemsToRender = menu.slice(start, end);
 
         itemsToRender.forEach(item => {
-            const itemLink = document.createElement("a");
-            itemLink.href = "#";
-            itemLink.classList.add("menu-item-link");
-
             const itemDiv = document.createElement("div");
             itemDiv.classList.add("menu-item");
 
@@ -72,19 +73,20 @@ document.addEventListener("DOMContentLoaded", () => {
             itemDiv.appendChild(itemName);
             itemDiv.appendChild(itemPrice);
             itemDiv.appendChild(addButton);
-            itemLink.appendChild(itemDiv);
-            menuView.appendChild(itemLink);
+            menuView.appendChild(itemDiv);
         });
 
         currentPage++;
     }
 
-    function handleScroll() {
+    // Handle scroll to load more menu items
+    window.addEventListener('scroll', () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             renderMenuPage();
         }
-    }
+    });
 
+    // Load customization options from the API
     async function loadCustomizations() {
         try {
             const response = await fetch(`${apiBaseUrl}/customizations`);
@@ -98,22 +100,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Show the customization modal
     function showModal() {
         const customizationSection = document.querySelector("#customization");
         customizationSection.classList.remove("hidden");
     }
 
+    // Hide the customization modal
     function hideModal() {
         const customizationSection = document.querySelector("#customization");
         customizationSection.classList.add("hidden");
     }
 
-    function attachCustomizationFormListener() {
-        const customizationForm = document.querySelector("#customization-form");
+    // Attach event listeners
+    function attachEventListeners() {
+        const customizationForm = document.querySelector("#review-form");
         customizationForm.addEventListener("submit", handleCustomizationFormSubmit);
-    }
 
-    function attachCartModalListener() {
         const closeModalButtons = document.querySelectorAll("#cart-modal .close, #checkout-btn");
         closeModalButtons.forEach(button => {
             button.addEventListener("click", () => {
@@ -122,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Handle customization form submission
     function handleCustomizationFormSubmit(event) {
         event.preventDefault();
         if (!currentItem) {
@@ -159,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
         hideModal(); // Hide modal after adding item to cart
     }
 
+    // Update the cart count displayed
     function updateCartCount() {
         const cartCountElement = document.querySelector("#cartCount");
         if (cartCountElement) {
@@ -168,6 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Render the items in the cart
     function renderCartItems() {
         const cartItems = document.querySelector(".cart-items");
         cartItems.innerHTML = "";
@@ -192,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Set up customization options
     function setUpCustomization(data) {
         const iceLevelSelect = document.querySelector("#ice-level");
         const sugarLevelSelect = document.querySelector("#sugar-level");
@@ -231,5 +238,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Start the application initialization
     init();
 });

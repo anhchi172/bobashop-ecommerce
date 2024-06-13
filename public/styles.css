@@ -1,3 +1,11 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f9e5c2;
@@ -8,27 +16,55 @@ body {
     margin: 0;
 }
 
+/* Navbar styles */
+.navbar {
+    background-color: #ff9900;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Section styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-view {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between; /* Adjust horizontal spacing */
+    max-width: 1200px; /* Limit maximum width of menu items */
+    margin: 20px auto;
+}
+
 .menu-item {
-    width: 50%;
+    width: calc(33.33% - 20px); /* Calculate width for three columns with gap */
     box-sizing: border-box;
     padding: 10px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ccc;
-    margin: 5px;
+    margin-bottom: 20px; /* Adjust margin to separate rows */
     background: #fff;
-    position: relative;
+    border: 1px solid #ccc;
 }
 
-.drink-item {
+.menu-item-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    flex-grow: 1; /* Image container grows to fill remaining space */
-}
-
-.menu-item-info {
-    text-align: center;
 }
 
 .menu-item h3, .menu-item p {
@@ -37,9 +73,9 @@ body {
 
 .drink-img {
     width: 100%;
-    max-width: 100%; /* Ensure image takes up full width of its container */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Cover the container and maintain aspect ratio */
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 .add-to-cart {
@@ -49,4 +85,62 @@ body {
     bottom: 10px;
     right: 10px;
     cursor: pointer;
+}
+
+/* Review form styles */
+.review-form {
+    max-width: 600px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+}
+
+.review-form h2 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.add-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ff9900;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #e68a00;
+}
+
+.add-button:focus {
+    outline: none;
 }
