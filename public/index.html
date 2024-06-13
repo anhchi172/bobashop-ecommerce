@@ -1,91 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CJ Tea</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-    <script defer src="twinkle-tea.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twinkle Tea</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>CJ Tea</h1>
-            <nav>
-                <ul>
-                    <li><a href="#menu">Menu</a></li>
-                    <li><a href="#cart">Cart</a></li>
-                    <li><a href="#customization">Customizations</a></li>
-                    <li><a href="#contact">Leave a review</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <main>
-        <section id="menu">
-            <h2>Menu</h2>
-            <div class="menu-view"></div>
-        </section>
-        <section id="products">
-            <!-- Products will be dynamically loaded here -->
-        </section>
-        <section id="cart-modal" class="hidden">
-            <div class="cart-content">
-                <span class="close">&times;</span>
-                <h2>Shopping Cart</h2>
-                <div class="cart-items">
-                    <!--Added items will be dynamically loaded here -->
+    <div class="menu-view">
+        <div class="menu-item">
+            <div class="menu-item-content">
+                <div class="menu-item-info">
+                    <h3>Classic Milk Tea</h3>
+                    <p>$3.50</p>
                 </div>
-                <span id="cartCount">0</span>
-                <button id="checkout-btn">Checkout</button>
+                <img src="imgs/classic-milk-tea.jpg" alt="Classic Milk Tea" class="drink-img">
             </div>
-        </section>
-        <section id="customization" class="hidden">
-            <span class="close">&times;</span>
-            <h2>Customize your drink</h2>
-            <form id="customization-form">
-                <label for="ice-level">Ice Level:</label>
-                <select id="ice-level" name="ice-level">
-                    <!-- Options will be populated dynamically -->
-                </select>
-                <label for="sugar-level">Sugar Level:</label>
-                <select id="sugar-level" name="sugar-level">
-                    <!-- Options will be populated dynamically -->
-                </select>
-                <div id="toppings">
-                    <h3>Toppings:</h3>
-                    <!-- Toppings will be populated dynamically -->
+            <img class="add-to-cart" src="imgs/plus.png" alt="Customize and Add to Cart">
+        </div>
+        <div class="menu-item">
+            <div class="menu-item-content">
+                <div class="menu-item-info">
+                    <h3>Taro Milk Tea</h3>
+                    <p>$4.00</p>
                 </div>
-                <button type="submit">Add to Cart</button>
-            </form>
-        </section>
-        <section id="review-form">
-            <form id="reviewForm">
-                <fieldset>
-                    <legend>Rating:</legend>
-                    <div class="rate">
-                        <input type="radio" id="star5" name="rate" value="5" />
-                        <label for="star5" title="5 stars">5 stars</label>
-                        <input type="radio" id="star4" name="rate" value="4" />
-                        <label for="star4" title="4 stars">4 stars</label>
-                        <input type="radio" id="star3" name="rate" value="3" />
-                        <label for="star3" title="3 stars">3 stars</label>
-                        <input type="radio" id="star2" name="rate" value="2" />
-                        <label for="star2" title="2 stars">2 stars</label>
-                        <input type="radio" id="star1" name="rate" value="1" />
-                        <label for="star1" title="1 star">1 star</label>
-                    </div>
-                </fieldset>
-                <p>How was your experience today?</p>
-                <textarea name="review" id="review" placeholder="Let us know what you like and how we can better serve you"></textarea>
-                <input placeholder="Name" type="text" id="name" name="name" autocomplete="name" />
-                <input placeholder="Email/Phone" type="text" id="contact" name="contact" autocomplete="email" />
-                <button type="submit" id="submit">Submit</button>
-            </form>
-        </section>
-    </main>
-    <footer>Images from Bubblepuff & Tea Cafe and icons from Flaticon</footer>
+                <img src="imgs/taro-milk-tea.jpg" alt="Taro Milk Tea" class="drink-img">
+            </div>
+            <img class="add-to-cart" src="imgs/plus.png" alt="Customize and Add to Cart">
+        </div>
+        <div class="menu-item">
+            <div class="menu-item-content">
+                <div class="menu-item-info">
+                    <h3>Thai Milk Tea</h3>
+                    <p>$3.75</p>
+                </div>
+                <img src="imgs/thai-milk-tea.jpg" alt="Thai Milk Tea" class="drink-img">
+            </div>
+            <img class="add-to-cart" src="imgs/plus.png" alt="Customize and Add to Cart">
+        </div>
+        <div class="menu-item">
+            <div class="menu-item-content">
+                <div class="menu-item-info">
+                    <h3>Matcha Milk Tea</h3>
+                    <p>$4.50</p>
+                </div>
+                <img src="imgs/matcha-milk-tea.jpg" alt="Matcha Milk Tea" class="drink-img">
+            </div>
+            <img class="add-to-cart" src="imgs/plus.png" alt="Customize and Add to Cart">
+        </div>
+        <div class="menu-item">
+            <div class="menu-item-content">
+                <div class="menu-item-info">
+                    <h3>Coffee Milk Tea</h3>
+                    <p>$4.00</p>
+                </div>
+                <img src="imgs/coffee-milk-tea.jpg" alt="Coffee Milk Tea" class="drink-img">
+            </div>
+            <img class="add-to-cart" src="imgs/plus.png" alt="Customize and Add to Cart">
+        </div>
+        <div class="menu-item">
+            <div class="menu-item-content">
+                <div class="menu-item-info">
+                    <h3>Honeydew Milk Tea</h3>
+                    <p>$3.25</p>
+                </div>
+                <img src="imgs/honeydew-milk-tea.jpg" alt="Honeydew Milk Tea" class="drink-img">
+            </div>
+            <button class="add-button">Add</button>
+        </div>
+    </div>
+    <div class="cart-items"></div>
+    <div id="customization" class="hidden">
+        <!-- Customization form goes here -->
+    </div>
+    <script src="twinkle-tea.js"></script>
 </body>
 </html>

@@ -1,37 +1,52 @@
-#customization .hidden {
-    display: none; 
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9e5c2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.menu-item {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    margin: 5px;
+    background: #fff;
+    position: relative;
+}
+
+.drink-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; /* Image container grows to fill remaining space */
+}
+
+.menu-item-info {
+    text-align: center;
+}
+
+.menu-item h3, .menu-item p {
+    margin: 5px 0;
+}
+
+.drink-img {
+    width: 100%;
+    max-width: 100%; /* Ensure image takes up full width of its container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the container and maintain aspect ratio */
 }
 
 .add-to-cart {
-    width: 10%;
-    height: auto;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     cursor: pointer;
-}
-
-/* Modal styling */
-#customization {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 500px;
-    background-color: #fff;  /* Background color */
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    display: flex;  /* Display as flex */
-    flex-direction: column;
-    gap: 20px;
-    /* Remove temporary styles */
-}
-
-#customization .close {
-    align-self: flex-end;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-#customization h2 {
-    margin: 0 0 20px;
 }

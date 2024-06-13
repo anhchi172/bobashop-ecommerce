@@ -2,100 +2,99 @@ document.addEventListener("DOMContentLoaded", () => {
     "use strict";
     let cart = [];
     let currentItem = null;
+    let menu = [];
+    let currentPage = 0;
+    const itemsPerPage = 6;
 
-    function init() {
-        loadMenu();
+    async function init() {
+        await loadConfig();
+        await loadMenu();
         loadCustomizations();
         attachCustomizationFormListener();
         attachCartModalListener();
+        window.addEventListener('scroll', handleScroll);
+        renderMenuPage();
     }
 
-    function updateCartCount() {
-        const cartCountElement = document.querySelector("#cartCount");
-        if (cartCountElement) {
-            cartCountElement.textContent = cart.length;
-        } else {
-            console.error("Cart count element not found.");
-        }
-    }
-
-    function renderCartItems() {
-        const cartItems = document.querySelector(".cart-items");
-        cartItems.innerHTML = "";
-        cart.forEach((item, index) => {
-            const itemDiv = document.createElement("div");
-            itemDiv.classList.add("cart-item");
-
-            const itemName = document.createElement("p");
-            itemName.textContent = `${item.name} - $${item.price.toFixed(2)} (Ice: ${item.customization.iceLevel}, Sugar: ${item.customization.sugarLevel})`;
-
-            const removeButton = document.createElement("button");
-            removeButton.textContent = "Remove";
-            removeButton.addEventListener("click", () => {
-                cart.splice(index, 1);
-                updateCartCount();
-                renderCartItems();
-            });
-
-            itemDiv.appendChild(itemName);
-            itemDiv.appendChild(removeButton);
-            cartItems.appendChild(itemDiv);
-        });
-    }
-
-    function populateMenu(menu) {
-        const menuView = document.querySelector(".menu-view");
-        for (const category in menu) {
-            const categoryDiv = document.createElement("div");
-            categoryDiv.classList.add("menu-category");
-
-            const categoryTitle = document.createElement("h2");
-            categoryTitle.textContent = formatCategoryName(category);
-            categoryDiv.appendChild(categoryTitle);
-
-            menu[category].forEach(item => {
-                const itemLink = document.createElement("a");
-                itemLink.href = "#";
-                itemLink.classList.add("menu-item-link");
-
-                const itemDiv = document.createElement("div");
-                itemDiv.classList.add("menu-item");
-
-                const itemName = document.createElement("h3");
-                itemName.textContent = item.name;
-
-                const itemPrice = document.createElement("p");
-                itemPrice.textContent = `$${item.price.toFixed(2)}`;
-
-                const addButton = document.createElement("img");
-                addButton.classList.add("add-to-cart");
-                addButton.src = "imgs/plus.png";
-                addButton.alt = "Customize and Add to Cart";
-                addButton.style.cursor = "pointer";
-
-                addButton.addEventListener("click", () => {
-                    console.log("Item selected for customization:", item); // Log the selected item
-                    currentItem = item;
-                    showModal();
-                });
-
-                itemLink.appendChild(itemDiv);
-                itemDiv.appendChild(itemName);
-                itemDiv.appendChild(itemPrice);
-                itemDiv.appendChild(addButton);
-                categoryDiv.appendChild(itemLink);
-            });
-            menuView.appendChild(categoryDiv);
+    async function loadConfig() {
+        try {
+            const response = await fetch("config.json");
+            const config = await response.json();
+            apiBaseUrl = config.apiBaseUrl;
+        } catch (error) {
+            console.error("Failed to load config:", error);
         }
     }
 
     async function loadMenu() {
         try {
-            const response = await fetch("/products");
-            const menu = await response.json();
-            populateMenu(menu);
+            const response = await fetch(`${apiBaseUrl}/products`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            menu = await response.json();
         } catch (error) {
             console.error("Failed to load menu:", error);
+        }
+    }
+
+    function renderMenuPage() {
+        const menuView = document.querySelector(".menu-view");
+        const start = currentPage * itemsPerPage;
+        const end = start + itemsPerPage;
+        const itemsToRender = menu.slice(start, end);
+
+        itemsToRender.forEach(item => {
+            const itemLink = document.createElement("a");
+            itemLink.href = "#";
+            itemLink.classList.add("menu-item-link");
+
+            const itemDiv = document.createElement("div");
+            itemDiv.classList.add("menu-item");
+
+            const itemName = document.createElement("h3");
+            itemName.textContent = item.name;
+
+            const itemPrice = document.createElement("p");
+            itemPrice.textContent = `$${item.price.toFixed(2)}`;
+
+            const addButton = document.createElement("img");
+            addButton.classList.add("add-to-cart");
+            addButton.src = "imgs/plus.png";
+            addButton.alt = "Customize and Add to Cart";
+            addButton.style.cursor = "pointer";
+
+            addButton.addEventListener("click", () => {
+                currentItem = item;
+                showModal();
+            });
+
+            itemDiv.appendChild(itemName);
+            itemDiv.appendChild(itemPrice);
+            itemDiv.appendChild(addButton);
+            itemLink.appendChild(itemDiv);
+            menuView.appendChild(itemLink);
+        });
+
+        currentPage++;
+    }
+
+    function handleScroll() {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            renderMenuPage();
+        }
+    }
+
+    async function loadCustomizations() {
+        try {
+            const response = await fetch(`${apiBaseUrl}/customizations`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            setUpCustomization(data);
+        } catch (error) {
+            console.error("Failed to load customizations:", error);
         }
     }
 
@@ -125,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function handleCustomizationFormSubmit(event) {
         event.preventDefault();
-        console.log("Form submitted. Current item:", currentItem); // Log the current item
         if (!currentItem) {
             console.error("No item selected for customization.");
             return;
@@ -161,20 +159,37 @@ document.addEventListener("DOMContentLoaded", () => {
         hideModal(); // Hide modal after adding item to cart
     }
 
-    function formatCategoryName(category) {
-        const spacedCategory = category.replace(/([A-Z])/g, ' $1');
-        const capitalizedCategory = spacedCategory.charAt(0).toUpperCase() + spacedCategory.slice(1);
-        return capitalizedCategory;
+    function updateCartCount() {
+        const cartCountElement = document.querySelector("#cartCount");
+        if (cartCountElement) {
+            cartCountElement.textContent = cart.length;
+        } else {
+            console.error("Cart count element not found.");
+        }
     }
 
-    async function loadCustomizations() {
-        try {
-            const response = await fetch("/customizations");
-            const data = await response.json();
-            setUpCustomization(data);
-        } catch (error) {
-            console.error("Failed to load customizations:", error);
-        }
+    function renderCartItems() {
+        const cartItems = document.querySelector(".cart-items");
+        cartItems.innerHTML = "";
+        cart.forEach((item, index) => {
+            const itemDiv = document.createElement("div");
+            itemDiv.classList.add("cart-item");
+
+            const itemName = document.createElement("p");
+            itemName.textContent = `${item.name} - $${item.price.toFixed(2)} (Ice: ${item.customization.iceLevel}, Sugar: ${item.customization.sugarLevel})`;
+
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.addEventListener("click", () => {
+                cart.splice(index, 1);
+                updateCartCount();
+                renderCartItems();
+            });
+
+            itemDiv.appendChild(itemName);
+            itemDiv.appendChild(removeButton);
+            cartItems.appendChild(itemDiv);
+        });
     }
 
     function setUpCustomization(data) {
