@@ -1,0 +1,139 @@
+{
+  "milk_tea": [
+    {
+      "name": "House Milk Tea",
+      "price": 5.25,
+      "image": "/imgs/house-milk-tea.jpg"
+    },
+    {
+      "name": "Hokkaido Milk Tea",
+      "price": 5.5,
+      "image": "/imgs/hokkaido-milk-tea.jpg"
+    },
+    {
+      "name": "Keemun Milk Tea",
+      "price": 5.25,
+      "image": "/imgs/keemun-milk-tea.jpg"
+    },
+    {
+      "name": "Coffee Milk Tea",
+      "price": 5.5,
+      "image": "/imgs/coffee-milk-tea.jpg"
+    },
+    {
+      "name": "Jasmine Milk Tea",
+      "price": 5.25,
+      "image": "/imgs/jasmine-milk-tea.jpg"
+    },
+    {
+      "name": "Taiwan Alpine Milk Tea",
+      "price": 5.5,
+      "image": "/imgs/taiwan-alpine-milk-tea.jpg"
+    },
+    {
+      "name": "Osmanthus Green Milk Tea",
+      "price": 5.25,
+      "image": "/imgs/osmanthus-green-milk-tea.jpg"
+    },
+    {
+      "name": "Green Milk Tea",
+      "price": 5.25,
+      "image": "/imgs/green-milk-tea.jpg"
+    },
+    {
+      "name": "Rose Milk Tea",
+      "price": 5.25,
+      "image": "/imgs/rose-milk-tea.jpg"
+    },
+    {
+      "name": "Peach Oolong Milk Tea",
+      "price": 5.25,
+      "image": "/imgs/peach-oolong-milk-tea.jpg"
+    },
+    {
+      "name": "Taro Milk Tea",
+      "price": 5.25,
+      "image": "/imgs/taro-milk-tea.jpg"
+    },
+    {
+      "name": "Thai Milk Tea",
+      "price": 5.25,
+      "image": "/imgs/thai-milk-tea.jpg"
+    },
+    {
+      "name": "Uji Matcha Latte",
+      "price": 5.5,
+      "image": "/imgs/uji-matcha-latte.jpg"
+    },
+    {
+      "name": "Uji Green Milk Tea",
+      "price": 5.25,
+      "image": "/imgs/uji-green-milk-tea.jpg"
+    },
+    { "name": "Cocoa Latte", "price": 5.25, "image": "/imgs/cocoa-latte.jpg" },
+    {
+      "name": "Tiramisu Milk Tea",
+      "price": 5.5,
+      "image": "/imgs/tiramisu-milk-tea.jpg"
+    },
+    {
+      "name": "Oreo Brulee Green Milk Tea",
+      "price": 5.75,
+      "image": "/imgs/oreo-brulee-green-milk-tea.jpg"
+    }
+  ],
+  "smoothie_series": [
+    { "name": "Mango Tango", "price": 5.5, "image": "/imgs/mango-tango.jpg" },
+    {
+      "name": "Strawberry Banana Tornado",
+      "price": 5.99,
+      "image": "/imgs/strawberry-banana-tornado.jpg"
+    },
+    {
+      "name": "Watermelon Storm",
+      "price": 5.25,
+      "image": "/imgs/watermelon-storm.jpg"
+    },
+    {
+      "name": "Adventure Avocado",
+      "price": 6.25,
+      "image": "/imgs/adventure-avocado.jpg"
+    },
+    {
+      "name": "Red Bean Rock",
+      "price": 5.25,
+      "image": "/imgs/red-bean-rock.jpg"
+    },
+    {
+      "name": "Fabulous Durian",
+      "price": 6.99,
+      "image": "/imgs/fabulous-durian.jpg"
+    },
+    {
+      "name": "Grapefruit Smash",
+      "price": 5.5,
+      "image": "/imgs/grapefruit-smash.jpg"
+    },
+    {
+      "name": "Taro Smoothie",
+      "price": 5.25,
+      "image": "/imgs/taro-smoothie.jpg"
+    },
+    {
+      "name": "Taro Oreo Smoothie",
+      "price": 5.75,
+      "image": "/imgs/taro-oreo-smoothie.jpg"
+    },
+    {
+      "name": "Chocolate Cloud",
+      "price": 5.25,
+      "image": "/imgs/chocolate-cloud.jpg"
+    },
+    {
+      "name": "Lychee Slush",
+      "price": 5.25,
+      "image": "/imgs/lychee-slush.jpg"
+    },
+    { "name": "Thai Slush", "price": 5.5, "image": "/imgs/thai-slush.jpg" }
+  ]
+}

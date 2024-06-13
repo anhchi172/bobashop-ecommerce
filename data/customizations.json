@@ -1,0 +1,15 @@
+{
+  "iceLevels": ["No Ice", "Light Ice", "Regular", "Extra Ice"],
+  "sugarLevels": ["No Sugar", "25%", "50%", "75%", "100% (Regular)"],
+  "toppings": [
+    { "name": "Messy Boba", "price": 0.95 },
+    { "name": "Golden Boba", "price": 0.75 },
+    { "name": "Honey Boba", "price": 0.75 },
+    { "name": "Crystal Boba", "price": 0.85 },
+    { "name": "Lychee Jelly", "price": 0.75 },
+    { "name": "Grass Jelly", "price": 0.75 },
+    { "name": "Red Beans", "price": 0.75 },
+    { "name": "Oreo", "price": 0.75 },
+    { "name": "Pudding", "price": 0.85 }
+  ]
+}

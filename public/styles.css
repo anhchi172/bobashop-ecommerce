@@ -1,0 +1,37 @@
+#customization .hidden {
+    display: none; 
+}
+
+.add-to-cart {
+    width: 10%;
+    height: auto;
+    cursor: pointer;
+}
+
+/* Modal styling */
+#customization {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background-color: #fff;  /* Background color */
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;  /* Display as flex */
+    flex-direction: column;
+    gap: 20px;
+    /* Remove temporary styles */
+}
+
+#customization .close {
+    align-self: flex-end;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#customization h2 {
+    margin: 0 0 20px;
+}
