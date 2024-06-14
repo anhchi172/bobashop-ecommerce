@@ -14,9 +14,6 @@ Recording a UI demo video was also fun, though it took several compression round
 I also got a better understanding of middleware pattern through OH and got inspired by Mario and Evelyn's 
 method of testing the backend. If there was more time, I would like to 
 spend on the backend portion. Here is a list of things I plan to work on during the summer: 
-- nav bar: 
-    - cart/order eventListener: when user click, should bring user to cart 
-    - center elements
 - adding a success message for the form submission
 - fix undefined after item name in cart view:
     - attempt: 2 spans for itemName and price, remove size span
