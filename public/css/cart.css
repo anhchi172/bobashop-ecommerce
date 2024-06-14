@@ -1,15 +1,28 @@
-/* Order section styling */
-.order-section {
-    flex: 0 0 20%; /* 20% width */
-    background-color: #fff;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+/* Cart section styling */
+.cart-section {
     padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-#cart-items {
-    flex-grow: 1;
-    overflow-y: auto;
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cart-item span {
+    margin-right: 10px;
+}
+
+.remove-button {
+    cursor: pointer;
+    color: red;
+    transition: color 0.3s ease;
+}
+
+.remove-button:hover {
+    color: darkred;
 }

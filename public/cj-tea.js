@@ -104,22 +104,20 @@ function updateCartView() {
         itemDiv.classList.add("cart-item");
 
         const itemName = document.createElement("span");
-        itemName.textContent = `${item.name} (${item.size})`;
+        itemName.textContent = item.name ? `${item.name} (${item.size})` : ""; // Check if item.name is defined
 
         const itemPrice = document.createElement("span");
         itemPrice.textContent = `$${item.price.toFixed(2)}`;
 
-        // Create an <i> element for the trash can icon
         const trashIcon = document.createElement("i");
         trashIcon.classList.add("fas", "fa-trash-alt", "remove-button");
-
         trashIcon.addEventListener("click", () => {
             removeItemFromCart(index);
         });
 
         itemDiv.appendChild(itemName);
         itemDiv.appendChild(itemPrice);
-        itemDiv.appendChild(trashIcon); // Append the trash can icon directly to itemDiv
+        itemDiv.appendChild(trashIcon);
         cartItemsDiv.appendChild(itemDiv);
     });
 }
@@ -134,16 +132,18 @@ function attachEventListeners() {
     const cartModal = document.querySelector("#cart");
     const cartLink = document.querySelector("#cart-link");
 
-    // Check if cartModal and cartLink are not null before adding event listeners
     if (cartModal && cartLink) {
         cartLink.addEventListener("click", (event) => {
             event.preventDefault();
             cartModal.classList.remove("hidden");
         });
 
-        cartModal.querySelector(".close").addEventListener("click", () => {
-            cartModal.classList.add("hidden");
-        });
+        const closeButton = cartModal.querySelector(".close");
+        if (closeButton) {
+            closeButton.addEventListener("click", () => {
+                cartModal.classList.add("hidden");
+            });
+        }
     }
 
     const reviewForm = document.querySelector("#review-form");

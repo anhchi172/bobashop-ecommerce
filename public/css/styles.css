@@ -1,9 +1,3 @@
-/* Reset default styles for all elements */
-* {
-    box-sizing: border-box; /* calculated width of each menu item includes the padding and border  */
-    overflow-y: auto;
-}
-
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f9e5c2;
