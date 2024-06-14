@@ -9,18 +9,6 @@ body {
     min-height: 100vh;
 }
 
-.menu-view {
-    display: flex; /* Apply Flexbox to the parent container */
-    justify-content: space-between; /* Distribute items evenly */
-}
-
-.menu-item {
-    width: calc(33.33% - 20px); /* Calculate width for three columns with gap */
-    padding: 10px;
-    background: #fff;
-    border: 1px solid #ccc;
-   
-}
 
 .navbar {
     position: fixed;
