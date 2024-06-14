@@ -1,0 +1,22 @@
+
+.add-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ff9900;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #e68a00;
+}
+
+.add-button:focus {
+    outline: none;
+}
+
+

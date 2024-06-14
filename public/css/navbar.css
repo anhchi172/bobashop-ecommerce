@@ -1,32 +1,15 @@
 
 /* Navbar styles */
-.navbar {
-    background-color: #ff9900;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
-
 .navbar a {
     color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
     font-size: 18px;
+    padding: 10px 15px;
+    text-decoration: none;
 }
 
 .navbar a:hover {
-    text-decoration: underline;
+    font-size: 110%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Update the styles for the cart icon */
-#cart-link {
-    display: inline-block; /* Ensure it respects other inline elements */
-    vertical-align: middle; /* Align vertically with other elements */
-    margin: 0 15px; /* Adjust spacing as needed */
-}
-
-#cartIcon {
-    width: 30px; 
-    height: auto; /* Maintain aspect ratio */
-}
 

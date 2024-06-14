@@ -1,23 +1,4 @@
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #ffffff; 
-    z-index: 1000; /* Ensure the navbar appears above other content */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /*  Add a shadow for depth */
-    transition: top 0.3s; /* Add smooth transition when scrolling */
-}
 
-.navbar a {
-    padding: 10px 15px;
-    text-decoration: none;
-    color: #333333; 
-}
 
-/* Style for the cart icon in the navbar */
-#cartIcon {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-}
+
+
