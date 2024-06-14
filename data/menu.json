@@ -4,73 +4,106 @@
       "id": 1,
       "name": "Hokkaido Milk Tea",
       "price": 5.5,
-      "image": "/imgs/hokkaido-milk-tea.jpg"
+      "image": "/imgs/hokkaido-milk-tea.jpg",
+      "description": "A creamy and rich milk tea originating from Hokkaido, Japan. It has a smooth texture and a subtle sweetness that pairs well with the earthy notes of the tea."
     },
     {
       "id": 2,
       "name": "Coffee Milk Tea",
       "price": 5.5,
-      "image": "/imgs/coffee-milk-tea.jpg"
+      "image": "/imgs/coffee-milk-tea.jpg",
+      "description": "A unique blend of coffee and milk tea, offering a harmonious balance between the robust flavor of coffee and the mellow sweetness of milk tea."
     },
     {
       "id": 3,
       "name": "Jasmine Milk Tea",
       "price": 5.25,
-      "image": "/imgs/jasmine-milk-tea.jpg"
+      "image": "/imgs/jasmine-milk-tea.jpg",
+      "description": "Fragrant jasmine tea combined with creamy milk, creating a delightful beverage with floral undertones and a smooth finish."
     },
     {
       "id": 4,
       "name": "Green Milk Tea",
       "price": 5.25,
-      "image": "/imgs/green-milk-tea.jpg"
+      "image": "/imgs/green-milk-tea.jpg",
+      "description": "Green tea infused with milk, resulting in a refreshing drink with a hint of grassy notes from the green tea and the creaminess of milk."
     },
     {
       "id": 5,
       "name": "Rose Milk Tea",
       "price": 5.25,
-      "image": "/imgs/rose-milk-tea.jpg"
+      "image": "/imgs/rose-milk-tea.jpg",
+      "description": "Aromatic rose petals steeped in tea and mixed with milk, imparting a floral aroma and a delicate flavor profile."
     },
     {
       "id": 6,
       "name": "Taro Milk Tea",
       "price": 5.25,
-      "image": "/imgs/taro-milk-tea.jpg"
+      "image": "/imgs/taro-milk-tea.jpg",
+      "description": "Taro root blended with milk tea, offering a unique purple hue and a sweet, nutty flavor that distinguishes it from traditional milk teas."
     },
     {
       "id": 7,
       "name": "Thai Milk Tea",
       "price": 5.25,
-      "image": "/imgs/thai-milk-tea.jpg"
+      "image": "/imgs/thai-milk-tea.jpg",
+      "description": "A traditional Thai beverage made with strongly brewed Ceylon tea, sweetened condensed milk, and spices like star anise and cardamom, delivering a bold and flavorful experience."
     },
     {
       "id": 8,
       "name": "Oreo Brulee Green Milk Tea",
       "price": 5.75,
-      "image": "/imgs/oreo-brulee-green-milk-tea.jpg"
+      "image": "/imgs/oreo-brulee-green-milk-tea.jpg",
+      "description": "A decadent fusion of green milk tea with the rich, chocolatey flavor of Oreo cookies, topped with a caramelized brulee layer for added sweetness and texture."
     },
     {
       "id": 9,
       "name": "Classic Milk Tea",
       "price": 3.5,
-      "image": "/imgs/classic-milk-tea.jpg"
+      "image": "/imgs/classic-milk-tea.jpg",
+      "description": "The timeless combination of black tea and milk, offering a simple yet satisfying beverage with a balanced blend of tea and creaminess."
     },
     {
       "id": 10,
       "name": "Thai Milk Tea",
       "price": 3.75,
-      "image": "/imgs/thai-milk-tea.jpg"
+      "image": "/imgs/thai-milk-tea.jpg",
+      "description": "A variation of traditional Thai milk tea, possibly with a unique twist or additional flavorings to enhance the original recipe."
     },
     {
       "id": 11,
       "name": "Matcha Milk Tea",
       "price": 4.5,
-      "image": "/imgs/matcha-milk-tea.jpg"
+      "image": "/imgs/matcha-milk-tea.jpg",
+      "description": "Creamy milk tea infused with high-quality matcha powder, providing a vibrant green color and a distinctively earthy and slightly bitter taste characteristic of matcha."
     },
     {
       "id": 12,
       "name": "Honeydew Milk Tea",
       "price": 3.25,
-      "image": "/imgs/honeydew-milk-tea.jpg"
+      "image": "/imgs/honeydew-milk-tea.jpg",
+      "description": "Sweet and refreshing milk tea flavored with honeydew melon, offering a fruity and aromatic twist to the classic milk tea."
+    },
+    {
+      "id": 13,
+      "name": "Tiramisu Milk Tea",
+      "price": 6.0,
+      "image": "/imgs/tiramisu-milk-tea.jpg",
+      "description": "Inspired by the classic Italian dessert, this milk tea features the flavors of coffee, cocoa, and mascarpone cheese, creating a rich and indulgent experience."
+    },
+    {
+      "id": 14,
+      "name": "Mango Sunset",
+      "price": 5.75,
+      "image": "/imgs/mango-tango.jpg",
+      "description": "A tropical delight blending the sweetness of ripe mangoes with creamy milk tea, offering a refreshing and fruity twist."
+    },
+    {
+      "id": 15,
+      "name": "Strawberry Matcha",
+      "price": 5.5,
+      "image": "/imgs/strawberry-matcha.jpg",
+      "description": "A delightful fusion of vibrant strawberries and earthy matcha, creating a harmonious balance of fruity sweetness and herbal notes."
     }
   ]
 }
