@@ -1,16 +1,24 @@
-/* styles.css */
-
-/* Reset default margin and padding */
+/* Reset default styles for all elements */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* calculated width of each menu item includes the padding and border  */
 }
 
-/* Global styles */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f9e5c2;
     min-height: 100vh;
-    margin: 0;
 }
+
+.menu-view {
+    display: flex; /* Apply Flexbox to the parent container */
+    justify-content: space-between; /* Distribute items evenly */
+}
+
+.menu-item {
+    width: calc(33.33% - 20px); /* Calculate width for three columns with gap */
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+
