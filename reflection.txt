@@ -6,8 +6,22 @@ putting myself in the users' shoes. Small things like keeping the navbar visible
 the menu so that they have the option to view the cart whenever they want, or having 
 autocomplete name field in forms and displaying the ratings in stars and having checks to make sure the 
 user does not submit an empty form are details I would normally never
-have realized if I had not taken 132. 
+have realized if I had not taken 132. I also learned the basics of git and and this is my 
+first time uploading a personal project and making frequent commits. Github desktop 
+is a great tool and I would recommend it for future 132 students for displaying their amazing work. 
+Recording a UI demo video was also fun, though it took several compression rounds to get the file size to below 10MB.
 
 I also got a better understanding of middleware pattern through OH and got inspired by Mario and Evelyn's 
 method of testing the backend. If there was more time, I would like to 
-spend 
+spend on the backend portion. Here is a list of things I plan to work on during the summer: 
+- nav bar: 
+    - cart/order eventListener: when user click, should bring user to cart 
+    - center elements
+- adding a success message for the form submission
+- fix undefined after item name in cart view:
+    - attempt: 2 spans for itemName and price, remove size span
+    - when view on browser the cj-tea.js is outdated, tried refresh and clearing cache, unsure why js source is not updated
+- fix customization modal
+    when user clicks add on menu item, the customization modal hidden class is removed
+    - customization.json data is fetched and html select options should be dynamically rendered
+- replace imgs with absolute paths and update citations.txt
