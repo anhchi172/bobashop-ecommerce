@@ -109,17 +109,17 @@ function updateCartView() {
         const itemPrice = document.createElement("span");
         itemPrice.textContent = `$${item.price.toFixed(2)}`;
 
-        const removeButton = document.createElement("button");
-        removeButton.classList.add("remove-button");
-        removeButton.textContent = "Remove";
+        // Create an <i> element for the trash can icon
+        const trashIcon = document.createElement("i");
+        trashIcon.classList.add("fas", "fa-trash-alt", "remove-button");
 
-        removeButton.addEventListener("click", () => {
+        trashIcon.addEventListener("click", () => {
             removeItemFromCart(index);
         });
 
         itemDiv.appendChild(itemName);
         itemDiv.appendChild(itemPrice);
-        itemDiv.appendChild(removeButton);
+        itemDiv.appendChild(trashIcon); // Append the trash can icon directly to itemDiv
         cartItemsDiv.appendChild(itemDiv);
     });
 }
@@ -134,35 +134,41 @@ function attachEventListeners() {
     const cartModal = document.querySelector("#cart");
     const cartLink = document.querySelector("#cart-link");
 
-    cartLink.addEventListener("click", (event) => {
-        event.preventDefault();
-        cartModal.classList.remove("hidden");
-    });
+    // Check if cartModal and cartLink are not null before adding event listeners
+    if (cartModal && cartLink) {
+        cartLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            cartModal.classList.remove("hidden");
+        });
 
-    cartModal.querySelector(".close").addEventListener("click", () => {
-        cartModal.classList.add("hidden");
-    });
+        cartModal.querySelector(".close").addEventListener("click", () => {
+            cartModal.classList.add("hidden");
+        });
+    }
 
     const reviewForm = document.querySelector("#review-form");
 
-    reviewForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
+    if (reviewForm) {
+        reviewForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
 
-        const formData = new FormData(reviewForm);
-        const name = formData.get("name");
-        const rating = formData.get("rating");
-        const message = formData.get("message");
+            const formData = new FormData(reviewForm);
+            const name = formData.get("name");
+            const rating = formData.get("rating");
+            const message = formData.get("message");
 
-        const review = { name, rating, message };
+            const review = { name, rating, message };
 
-        try {
-            await postReview(review);
-            reviewForm.reset();
-        } catch (error) {
-            console.error("Failed to post review:", error);
-        }
-    });
+            try {
+                await postReview(review);
+                reviewForm.reset();
+            } catch (error) {
+                console.error("Failed to post review:", error);
+            }
+        });
+    }
 }
+
 
 async function postReview(review) {
     try {
