@@ -1,0 +1,16 @@
+/* styles.css */
+
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9e5c2;
+    min-height: 100vh;
+    margin: 0;
+}

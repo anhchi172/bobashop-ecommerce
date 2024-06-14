@@ -1,0 +1,63 @@
+/* review.css */
+
+/* Review form styles */
+.review-section {
+    padding: 20px 0;
+    text-align: center;
+}
+
+.review-section h2 {
+    margin-bottom: 20px;
+}
+
+#review-form {
+    max-width: 600px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.add-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ff9900;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #e68a00;
+}
+
+.add-button:focus {
+    outline: none;
+}

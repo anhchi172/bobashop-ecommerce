@@ -8,6 +8,7 @@ const SERVER_ERROR = "Something went wrong on the server, please try again later
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());  // To handle JSON data
 
 // Returns a JSON collection of all categories and items served at the boba shop
 app.get("/menu", async (req, res) => {
@@ -42,6 +43,23 @@ app.get("/customizations", async (req, res) => {
         res.json(JSON.parse(customizationsData));
     } catch (err) {
         console.error("Error reading customizations data:", err);
+        res.status(SERVER_ERR_CODE).send(SERVER_ERROR);
+    }
+});
+
+// Handles posting reviews
+app.post("/reviews", async (req, res) => {
+    try {
+        const reviewData = await fs.readFile('data/reviews.json', 'utf8');
+        const reviews = JSON.parse(reviewData);
+
+        const newReview = req.body;
+        reviews.push(newReview);
+
+        await fs.writeFile('data/reviews.json', JSON.stringify(reviews, null, 2));
+        res.status(201).send("Review added successfully");
+    } catch (err) {
+        console.error("Error saving review data:", err);
         res.status(SERVER_ERR_CODE).send(SERVER_ERROR);
     }
 });

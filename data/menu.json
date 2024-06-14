@@ -46,11 +46,6 @@
       "image": "/imgs/classic-milk-tea.jpg"
     },
     {
-      "name": "Taro Milk Tea",
-      "price": 4.0,
-      "image": "/imgs/taro-milk-tea.jpg"
-    },
-    {
       "name": "Thai Milk Tea",
       "price": 3.75,
       "image": "/imgs/thai-milk-tea.jpg"

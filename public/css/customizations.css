@@ -1,0 +1,74 @@
+/* customizations.css */
+
+/* Modal styles */
+#customization {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#customization .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+}
+
+#customization .close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#customization .close-button:hover,
+#customization .close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#customization-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#customization-form label {
+    margin: 10px 0 5px;
+}
+
+#customization-form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+#customization-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ff9900;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#customization-form button:hover {
+    background-color: #e68a00;
+}
+
+#customization-form button:focus {
+    outline: none;
+}
