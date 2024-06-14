@@ -195,6 +195,16 @@ async function postReview(review) {
         if (!response.ok) {
             throw new Error(`Failed to post review: ${response.statusText}`);
         }
+
+        // Show success message
+        const successMessageDiv = document.getElementById("review-success-message");
+        successMessageDiv.classList.remove("hidden");
+
+        // Hide the success message after a few seconds
+        setTimeout(() => {
+            successMessageDiv.classList.add("hidden");
+        }, 3000);
+
     } catch (error) {
         console.error("Failed to post review:", error);
     }
