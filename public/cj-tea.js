@@ -1,264 +1,185 @@
 document.addEventListener("DOMContentLoaded", () => {
-    "use strict";
+    init();
+});
 
-    let cart = [];
-    let currentItem = null;
-    let menu = [];
-    let currentPage = 0;
-    const itemsPerPage = 6;
-    const apiBaseUrl = "http://localhost:3000";
+let cart = [];
+let menu = [];
+let currentPage = 0;
+const itemsPerPage = 6;
+const apiBaseUrl = "http://localhost:3000";
 
-    async function init() {
-        try {
-            await loadMenu();
-            loadCartFromLocalStorage();
-            attachEventListeners();
-            renderMenuPage();
-        } catch (error) {
-            console.error("Initialization failed:", error);
-        }
+async function init() {
+    try {
+        await loadMenu();
+        loadCartFromLocalStorage();
+        attachEventListeners();
+        renderMenuPage();
+    } catch (error) {
+        console.error("Initialization failed:", error);
     }
+}
 
-    async function loadMenu() {
-        try {
-            const response = await fetch(`${apiBaseUrl}/menu`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            menu = await response.json();
-        } catch (error) {
-            console.error("Failed to load menu:", error);
+async function loadMenu() {
+    try {
+        const response = await fetch(`${apiBaseUrl}/menu`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        menu = await response.json();
+    } catch (error) {
+        console.error("Failed to load menu:", error);
     }
+}
 
-    function renderMenuPage() {
-        const menuSection = document.querySelector("#menu");
-        const start = currentPage * itemsPerPage;
-        const end = start + itemsPerPage;
-        const itemsToRender = Object.values(menu).flat().slice(start, end);
+function renderMenuPage() {
+    const menuSection = document.querySelector("#menu");
+    const start = currentPage * itemsPerPage;
+    const end = start + itemsPerPage;
+    const itemsToRender = Object.values(menu).flat().slice(start, end);
 
-        itemsToRender.forEach(item => {
-            const itemArticle = document.createElement("article");
-            itemArticle.classList.add("menu-item");
+    itemsToRender.forEach(item => {
+        const itemArticle = document.createElement("article");
+        itemArticle.classList.add("menu-item");
 
-            const itemName = document.createElement("h3");
-            itemName.textContent = item.name;
+        const itemName = document.createElement("h3");
+        itemName.textContent = item.name;
 
-            const itemPrice = document.createElement("p");
-            itemPrice.textContent = `$${item.price.toFixed(2)}`;
+        const itemPrice = document.createElement("p");
+        itemPrice.textContent = `$${item.price.toFixed(2)}`;
 
-            const itemImage = document.createElement("img");
-            itemImage.src = item.image;
-            itemImage.alt = item.name;
-            itemImage.classList.add("drink-img");
+        const itemImage = document.createElement("img");
+        itemImage.src = item.image;
+        itemImage.alt = item.name;
+        itemImage.classList.add("drink-img");
 
-            const addButton = document.createElement("button");
-            addButton.classList.add("add-button");
-            addButton.textContent = "Add";
-            addButton.style.cursor = "pointer";
+        const addButton = document.createElement("button");
+        addButton.classList.add("add-button");
+        addButton.textContent = "Add";
+        addButton.style.cursor = "pointer";
 
-            addButton.addEventListener("click", () => {
-                currentItem = item;
-                showModal();
-            });
-
-            itemArticle.appendChild(itemName);
-            itemArticle.appendChild(itemPrice);
-            itemArticle.appendChild(itemImage);
-            itemArticle.appendChild(addButton);
-            menuSection.appendChild(itemArticle);
+        addButton.addEventListener("click", () => {
+            addItemToCart(item);
         });
 
-        currentPage++;
-    }
-
-    window.addEventListener('scroll', () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            renderMenuPage();
-        }
+        itemArticle.appendChild(itemName);
+        itemArticle.appendChild(itemPrice);
+        itemArticle.appendChild(itemImage);
+        itemArticle.appendChild(addButton);
+        menuSection.appendChild(itemArticle);
     });
 
-    function showModal() {
-        const customizationSection = document.querySelector("#customization");
-        customizationSection.classList.remove("hidden");
+    currentPage++;
+}
 
-        // Fetch customization options from the server
-        fetchCustomizationOptions();
+window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        renderMenuPage();
     }
+});
 
-    async function fetchCustomizationOptions() {
-        try {
-            const response = await fetch(`${apiBaseUrl}/customizations`);
-            if (!response.ok) {
-                throw new Error(`Failed to fetch customizations: ${response.statusText}`);
-            }
-            const customizations = await response.json();
-            renderCustomizationOptions(customizations);
-        } catch (error) {
-            console.error("Failed to fetch customizations:", error);
-        }
-    }
+function addItemToCart(item) {
+    cart.push(item);
+    saveCartToLocalStorage();
+    updateCartView();
+}
 
-    function renderCustomizationOptions(customizations) {
-        const toppingsSelect = document.querySelector("#toppings");
-        toppingsSelect.innerHTML = '';
+function saveCartToLocalStorage() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
 
-        customizations.toppings.forEach(topping => {
-            const option = document.createElement("option");
-            option.value = topping.id;
-            option.textContent = `${topping.name} (+$${topping.price.toFixed(2)})`;
-            toppingsSelect.appendChild(option);
-        });
-    }
-
-    function addItemToCart(item) {
-        cart.push(item);
-        saveCartToLocalStorage();
+function loadCartFromLocalStorage() {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+        cart = JSON.parse(storedCart);
         updateCartView();
     }
+}
 
-    function saveCartToLocalStorage() {
-        localStorage.setItem("cart", JSON.stringify(cart));
-    }
+function updateCartView() {
+    const cartItemsDiv = document.querySelector("#cart-items");
+    cartItemsDiv.innerHTML = '';
 
-    function loadCartFromLocalStorage() {
-        const storedCart = localStorage.getItem("cart");
-        if (storedCart) {
-            cart = JSON.parse(storedCart);
-            updateCartView();
-        }
-    }
+    cart.forEach((item, index) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("cart-item");
 
-    function updateCartView() {
-        const cartItemsDiv = document.querySelector("#cart-items");
-        cartItemsDiv.innerHTML = '';
+        const itemName = document.createElement("span");
+        itemName.textContent = `${item.name} (${item.size})`;
 
-        cart.forEach((item, index) => {
-            const itemDiv = document.createElement("div");
-            itemDiv.classList.add("cart-item");
+        const itemPrice = document.createElement("span");
+        itemPrice.textContent = `$${item.price.toFixed(2)}`;
 
-            const itemName = document.createElement("span");
-            itemName.textContent = `${item.name} (${item.size})`;
+        const removeButton = document.createElement("button");
+        removeButton.classList.add("remove-button");
+        removeButton.textContent = "Remove";
 
-            const itemPrice = document.createElement("span");
-            itemPrice.textContent = `$${item.price.toFixed(2)}`;
-
-            const removeButton = document.createElement("button");
-            removeButton.classList.add("remove-button");
-            removeButton.textContent = "Remove";
-
-            removeButton.addEventListener("click", () => {
-                removeItemFromCart(index);
-            });
-
-            itemDiv.appendChild(itemName);
-            itemDiv.appendChild(itemPrice);
-            itemDiv.appendChild(removeButton);
-            cartItemsDiv.appendChild(itemDiv);
-        });
-    }
-
-    function removeItemFromCart(index) {
-        cart.splice(index, 1);
-        saveCartToLocalStorage();
-        updateCartView();
-    }
-
-    function attachEventListeners() {
-        const customizationModal = document.querySelector("#customization");
-        const customizationForm = document.querySelector("#customization-form");
-
-        customizationForm.addEventListener("submit", (event) => {
-            event.preventDefault();
-
-            const formData = new FormData(customizationForm);
-            const size = formData.get("size");
-            const sugar = formData.get("sugar");
-            const ice = formData.get("ice");
-            const toppings = formData.getAll("toppings");
-
-            const newItem = {
-                ...currentItem,
-                size,
-                sugar,
-                ice,
-                toppings,
-                price: calculateItemPrice(currentItem.price, toppings)
-            };
-
-            addItemToCart(newItem);
-            customizationModal.classList.add("hidden");
+        removeButton.addEventListener("click", () => {
+            removeItemFromCart(index);
         });
 
-        customizationModal.querySelector(".close-button").addEventListener("click", () => {
-            customizationModal.classList.add("hidden");
-        });
+        itemDiv.appendChild(itemName);
+        itemDiv.appendChild(itemPrice);
+        itemDiv.appendChild(removeButton);
+        cartItemsDiv.appendChild(itemDiv);
+    });
+}
 
-        const cartModal = document.querySelector("#cart");
-        const cartLink = document.querySelector("#cart-link");
+function removeItemFromCart(index) {
+    cart.splice(index, 1);
+    saveCartToLocalStorage();
+    updateCartView();
+}
 
-        cartLink.addEventListener("click", (event) => {
-            event.preventDefault();
-            cartModal.classList.remove("hidden");
-        });
+function attachEventListeners() {
+    const cartModal = document.querySelector("#cart");
+    const cartLink = document.querySelector("#cart-link");
 
-        cartModal.querySelector(".close").addEventListener("click", () => {
-            cartModal.classList.add("hidden");
-        });
+    cartLink.addEventListener("click", (event) => {
+        event.preventDefault();
+        cartModal.classList.remove("hidden");
+    });
 
-        const reviewForm = document.querySelector("#review-form");
+    cartModal.querySelector(".close").addEventListener("click", () => {
+        cartModal.classList.add("hidden");
+    });
 
-        reviewForm.addEventListener("submit", async (event) => {
-            event.preventDefault();
+    const reviewForm = document.querySelector("#review-form");
 
-            const formData = new FormData(reviewForm);
-            const name = formData.get("name");
-            const rating = formData.get("rating");
-            const message = formData.get("message");
+    reviewForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-            const review = { name, rating, message };
+        const formData = new FormData(reviewForm);
+        const name = formData.get("name");
+        const rating = formData.get("rating");
+        const message = formData.get("message");
 
-            try {
-                await postReview(review);
-                reviewForm.reset();
-            } catch (error) {
-                console.error("Failed to post review:", error);
-            }
-        });
-    }
+        const review = { name, rating, message };
 
-    async function postReview(review) {
         try {
-            const response = await fetch(`${apiBaseUrl}/reviews`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(review)
-            });
-
-            if (!response.ok) {
-                throw new Error(`Failed to post review: ${response.statusText}`);
-            }
+            await postReview(review);
+            reviewForm.reset();
         } catch (error) {
             console.error("Failed to post review:", error);
         }
-    }
+    });
+}
 
-    function calculateItemPrice(basePrice, toppings) {
-        let totalPrice = basePrice;
-        toppings.forEach(toppingId => {
-            const topping = getToppingById(toppingId);
-            if (topping) {
-                totalPrice += topping.price;
-            }
+async function postReview(review) {
+    try {
+        const response = await fetch(`${apiBaseUrl}/reviews`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(review)
         });
-        return totalPrice;
-    }
 
-    function getToppingById(toppingId) {
-        return customizations.toppings.find(topping => topping.id === toppingId);
+        if (!response.ok) {
+            throw new Error(`Failed to post review: ${response.statusText}`);
+        }
+    } catch (error) {
+        console.error("Failed to post review:", error);
     }
+}
 
-    init();
-});
+init();

@@ -1,61 +1,73 @@
 {
   "milk_tea": [
     {
+      "id": 1,
       "name": "Hokkaido Milk Tea",
       "price": 5.5,
       "image": "/imgs/hokkaido-milk-tea.jpg"
     },
     {
+      "id": 2,
       "name": "Coffee Milk Tea",
       "price": 5.5,
       "image": "/imgs/coffee-milk-tea.jpg"
     },
     {
+      "id": 3,
       "name": "Jasmine Milk Tea",
       "price": 5.25,
       "image": "/imgs/jasmine-milk-tea.jpg"
     },
     {
+      "id": 4,
       "name": "Green Milk Tea",
       "price": 5.25,
       "image": "/imgs/green-milk-tea.jpg"
     },
     {
+      "id": 5,
       "name": "Rose Milk Tea",
       "price": 5.25,
       "image": "/imgs/rose-milk-tea.jpg"
     },
     {
+      "id": 6,
       "name": "Taro Milk Tea",
       "price": 5.25,
       "image": "/imgs/taro-milk-tea.jpg"
     },
     {
+      "id": 7,
       "name": "Thai Milk Tea",
       "price": 5.25,
       "image": "/imgs/thai-milk-tea.jpg"
     },
     {
+      "id": 8,
       "name": "Oreo Brulee Green Milk Tea",
       "price": 5.75,
       "image": "/imgs/oreo-brulee-green-milk-tea.jpg"
     },
     {
+      "id": 9,
       "name": "Classic Milk Tea",
       "price": 3.5,
       "image": "/imgs/classic-milk-tea.jpg"
     },
     {
+      "id": 10,
       "name": "Thai Milk Tea",
       "price": 3.75,
       "image": "/imgs/thai-milk-tea.jpg"
     },
     {
+      "id": 11,
       "name": "Matcha Milk Tea",
       "price": 4.5,
       "image": "/imgs/matcha-milk-tea.jpg"
     },
     {
+      "id": 12,
       "name": "Honeydew Milk Tea",
       "price": 3.25,
       "image": "/imgs/honeydew-milk-tea.jpg"

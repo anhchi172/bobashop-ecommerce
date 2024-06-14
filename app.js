@@ -1,14 +1,35 @@
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const SERVER_ERR_CODE = 500;
 const SERVER_ERROR = "Something went wrong on the server, please try again later.";
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Middleware to handle CORS
+app.use(cors());
+
+// Middleware to parse JSON and urlencoded data
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());  // To handle JSON data
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Custom error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack); // Log the error stack trace
+
+    // Check for specific error types and send appropriate responses
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        // Handle JSON parsing error
+        return res.status(400).send('Bad JSON syntax');
+    }
+
+    // Default error response
+    res.status(500).send('Internal Server Error');
+});
 
 // Returns a JSON collection of all categories and items served at the boba shop
 app.get("/menu", async (req, res) => {
@@ -21,7 +42,7 @@ app.get("/menu", async (req, res) => {
 });
 
 // Returns a JSON array of items for the given category name
-app.get("/menu/:category", async (req, res) => {
+app.get("/menu/:category", validateParams, async (req, res) => {
     let categoryDir = req.params.category.toLowerCase();
     try {
         const result = await getItemData(categoryDir);
@@ -83,6 +104,21 @@ async function getItemData(category) {
         console.error("Error reading menu data:", err);
         return [];
     }
+}
+
+// Middleware function to validate request parameters
+function validateParams(req, res, next) {
+    const { category } = req.params;
+    
+    // Check if required parameter 'category' is present
+    if (!category) {
+        return res.status(400).send('Category parameter is required');
+    }
+
+    // Additional validation logic for parameters
+
+    // If validation passes, move to the next middleware
+    next();
 }
 
 app.listen(3000, () => {
