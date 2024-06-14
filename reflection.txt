@@ -13,11 +13,8 @@ Recording a UI demo video was also fun, though it took several compression round
 
 I also got a better understanding of middleware pattern through OH and got inspired by Mario and Evelyn's 
 method of testing the backend. If there was more time, I would like to 
-spend on the backend portion. Here is a list of things I plan to work on during the summer: 
-- fix undefined after item name in cart view:
-    - attempt: 2 spans for itemName and price, remove size span
-    - when view on browser the cj-tea.js is outdated, tried refresh and clearing cache, unsure why js source is not updated
+spend on the backend portion, specifically
 - fix customization modal
     when user clicks add on menu item, the customization modal hidden class is removed
     - customization.json data is fetched and html select options should be dynamically rendered
-- replace imgs with absolute paths and update citations.txt
+
