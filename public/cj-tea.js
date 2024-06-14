@@ -32,7 +32,7 @@ async function loadMenu() {
 }
 
 function renderMenuPage() {
-    const menuSection = document.querySelector("#menu");
+    const menuItemsDiv = document.querySelector("#menu-items");
     const start = currentPage * itemsPerPage;
     const end = start + itemsPerPage;
     const itemsToRender = Object.values(menu).flat().slice(start, end);
@@ -65,7 +65,7 @@ function renderMenuPage() {
         itemArticle.appendChild(itemPrice);
         itemArticle.appendChild(itemImage);
         itemArticle.appendChild(addButton);
-        menuSection.appendChild(itemArticle);
+        menuItemsDiv.appendChild(itemArticle);
     });
 
     currentPage++;
@@ -168,7 +168,6 @@ function attachEventListeners() {
         });
     }
 }
-
 
 async function postReview(review) {
     try {

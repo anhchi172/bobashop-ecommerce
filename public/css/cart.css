@@ -1,4 +1,15 @@
+/* Order section styling */
+.order-section {
+    flex: 0 0 20%; /* 20% width */
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
 
-
-
-
+#cart-items {
+    flex-grow: 1;
+    overflow-y: auto;
+}

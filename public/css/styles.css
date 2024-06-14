@@ -1,6 +1,7 @@
 /* Reset default styles for all elements */
 * {
     box-sizing: border-box; /* calculated width of each menu item includes the padding and border  */
+    overflow-y: auto;
 }
 
 body {
@@ -19,4 +20,10 @@ body {
     color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /*  Add a shadow for depth */
     padding: 10px 0;
+}
+
+/* Container that wraps the menu and order sections */
+.container {
+    display: flex;
+    height: 100vh; /* Full height */
 }
