@@ -1,0 +1,14 @@
+[
+  {
+    "id": 11,
+    "name": "Matcha Milk Tea",
+    "price": 4.5,
+    "image": "/imgs/matcha-milk-tea.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Honeydew Milk Tea",
+    "price": 3.25,
+    "image": "/imgs/honeydew-milk-tea.jpg"
+  }
+]

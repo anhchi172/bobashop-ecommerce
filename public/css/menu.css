@@ -22,7 +22,7 @@
     flex-grow: 1;
 }
 
-.add-button {
+.add-button, #cart-submit-button {
     margin-top: 10px;
     padding: 10px 30px;
     font-size: 16px;

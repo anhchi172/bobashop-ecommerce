@@ -128,11 +128,11 @@ function removeItemFromCart(index) {
     saveCartToLocalStorage();
     updateCartView();
 }
-
 function attachEventListeners() {
     const sections = document.querySelectorAll("main > section");
     const navLinks = document.querySelectorAll(".navbar a");
 
+    // Event listener for navigation links
     navLinks.forEach(link => {
         link.addEventListener("click", (event) => {
             event.preventDefault();
@@ -141,6 +141,7 @@ function attachEventListeners() {
         });
     });
 
+    // Event listener for close buttons
     const closeButtons = document.querySelectorAll(".close-button");
     closeButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -148,6 +149,23 @@ function attachEventListeners() {
         });
     });
 
+    const cartSubmitButton = document.querySelector("#cart-submit-button");
+    const emptyCartMessage = document.querySelector("#empty-cart-message");
+    
+    cartSubmitButton.addEventListener("click", async () => {
+        if (cart.length === 0) {
+            emptyCartMessage.classList.remove("hidden");
+            return;
+        }
+        emptyCartMessage.classList.add("hidden");
+        const submitResult = await submitOrder(cart);
+    });
+    
+    // Attach event handlers for the review form
+    attachReviewFormHandlers();
+}
+
+function attachReviewFormHandlers() {
     const reviewForm = document.querySelector("#review-form");
 
     if (reviewForm) {
@@ -171,8 +189,8 @@ function attachEventListeners() {
     }
 }
 
+
 function showSection(targetId) {
-    console.log(`Showing section: ${targetId}`); // Debugging log
     const sections = document.querySelectorAll("main > section");
     sections.forEach(section => {
         if (section.id === targetId) {
@@ -208,6 +226,32 @@ async function postReview(review) {
 
     } catch (error) {
         console.error("Failed to post review:", error);
+    }
+}
+
+async function submitOrder(cartData) {
+    try {
+        const response = await fetch(`${apiBaseUrl}/cart`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(cartData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to submit order: ${response.statusText}`);
+        }
+
+        // Clear the cart after successful submission
+        cart = [];
+        saveCartToLocalStorage();
+        updateCartView();
+
+        return "Order submitted successfully";
+    } catch (error) {
+        console.error("Failed to submit order:", error);
+        return "Failed to submit order";
     }
 }
 

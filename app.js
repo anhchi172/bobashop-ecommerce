@@ -95,6 +95,25 @@ app.post("/reviews", async (req, res) => {
     }
 });
 
+// Handle cart submission
+app.post("/cart", async (req, res) => {
+    try {
+        const cartData = req.body; 
+        await saveCartToJSON(cartData);
+        res.status(200).send("Cart submitted successfully");
+    } catch (err) {
+        console.error("Error saving cart data:", err);
+        res.status(SERVER_ERR_CODE).send(SERVER_ERROR);
+    }
+});
+
+// Function to save cart data to JSON file
+async function saveCartToJSON(cartData) {
+    const cartFilePath = path.join(__dirname, 'data', 'cart.json');
+    await fs.writeFile(cartFilePath, JSON.stringify(cartData, null, 2));
+}
+
+
 async function getMenuData() {
     try {
         const menuData = await fs.readFile('data/menu.json', 'utf8');
