@@ -21,3 +21,7 @@ body {
     display: flex;
     height: 100vh; /* Full height */
 }
+
+.hidden {
+    display: none;
+}

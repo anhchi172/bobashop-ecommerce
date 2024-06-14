@@ -129,22 +129,23 @@ function removeItemFromCart(index) {
 }
 
 function attachEventListeners() {
-    const cartModal = document.querySelector("#cart");
-    const cartLink = document.querySelector("#cart-link");
+    const sections = document.querySelectorAll("main > section");
+    const navLinks = document.querySelectorAll(".navbar a");
 
-    if (cartModal && cartLink) {
-        cartLink.addEventListener("click", (event) => {
+    navLinks.forEach(link => {
+        link.addEventListener("click", (event) => {
             event.preventDefault();
-            cartModal.classList.remove("hidden");
+            const targetId = link.getAttribute("href").substring(1);
+            showSection(targetId);
         });
+    });
 
-        const closeButton = cartModal.querySelector(".close");
-        if (closeButton) {
-            closeButton.addEventListener("click", () => {
-                cartModal.classList.add("hidden");
-            });
-        }
-    }
+    const closeButtons = document.querySelectorAll(".close-button");
+    closeButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            showSection("");
+        });
+    });
 
     const reviewForm = document.querySelector("#review-form");
 
@@ -167,6 +168,18 @@ function attachEventListeners() {
             }
         });
     }
+}
+
+function showSection(targetId) {
+    console.log(`Showing section: ${targetId}`); // Debugging log
+    const sections = document.querySelectorAll("main > section");
+    sections.forEach(section => {
+        if (section.id === targetId) {
+            section.classList.remove("hidden");
+        } else {
+            section.classList.add("hidden");
+        }
+    });
 }
 
 async function postReview(review) {
