@@ -26,3 +26,15 @@
 .remove-button:hover {
     color: darkred;
 }
+
+.cart-item span:first-child {
+    flex: 0 0 60%; /* Take up 60% of the available space */
+    overflow: hidden; /* Hide any overflow if content exceeds the width */
+    text-overflow: ellipsis; /* Show ellipsis (...) if content overflows */
+    white-space: nowrap; /* Prevent wrapping of text */
+}
+
+.cart-item span:last-child {
+    flex: 0 0 40%; /* Take up 40% of the available space */
+    text-align: right; /* Align text to the right within the span */
+}

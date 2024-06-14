@@ -104,7 +104,7 @@ function updateCartView() {
         itemDiv.classList.add("cart-item");
 
         const itemName = document.createElement("span");
-        itemName.textContent = item.name ? `${item.name} (${item.size})` : ""; // Check if item.name is defined
+        itemName.textContent = item.name || ""; // Only display item name
 
         const itemPrice = document.createElement("span");
         itemPrice.textContent = `$${item.price.toFixed(2)}`;
@@ -121,6 +121,7 @@ function updateCartView() {
         cartItemsDiv.appendChild(itemDiv);
     });
 }
+
 
 function removeItemFromCart(index) {
     cart.splice(index, 1);
