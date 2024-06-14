@@ -1,3 +1,10 @@
+/*
+    Name: Chi Hoang
+    CS 132 Spring 2024
+    Date: June 7, 2024
+    This is server.js that implements the backend API for the final project.
+*/
+
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
@@ -25,6 +32,9 @@ app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
         // Handle JSON parsing error
         return res.status(400).send('Bad JSON syntax');
+    } else if (err.code === 'ENOENT') {
+        // Handle file not found error
+        return res.status(404).send('File not found');
     }
 
     // Default error response
@@ -114,8 +124,6 @@ function validateParams(req, res, next) {
     if (!category) {
         return res.status(400).send('Category parameter is required');
     }
-
-    // Additional validation logic for parameters
 
     // If validation passes, move to the next middleware
     next();
